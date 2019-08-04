@@ -10,6 +10,13 @@ public class Album {
     public Album() {
     }
 
+    public Album(String title, String artist, String genre, int year) {
+        this.title = title;
+        this.artist = artist;
+        this.genre = genre;
+        this.year = year;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -40,5 +47,22 @@ public class Album {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public boolean isValid() {
+        return title != null && !title.isEmpty()
+                && artist != null && !artist.isEmpty()
+                && genre != null && !genre.isEmpty()
+                && year > 1900;
+    }
+
+    @Override
+    public String toString() {
+        return "Album{" +
+                "title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", genre='" + genre + '\'' +
+                ", year=" + year +
+                '}';
     }
 }
