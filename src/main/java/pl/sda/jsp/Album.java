@@ -7,9 +7,6 @@ public class Album {
     private String genre;
     private int year;
 
-    public Album() {
-    }
-
     public Album(String title, String artist, String genre, int year) {
         this.title = title;
         this.artist = artist;

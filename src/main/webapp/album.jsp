@@ -10,6 +10,7 @@
     <title>My Albums Collection</title>
 </head>
 
+<%--styl do obramowania tabelki--%>
 <style>
     table, th, td {
         border: 1px solid black;
@@ -18,16 +19,10 @@
 
 <body>
 
-<%
-    if (session.getAttribute("albums") == null) {
-        session.setAttribute("albums", new ArrayList<Album>());
-    }
-%>
-
-${param.submitted}
-
+<%--Formularz z polami. Nazwy pól (atrybut 'name' odpowiadają nazwom setterów w klasie--%>
+<%--Ukryte pole pozwala sprawdzić, czy formularz został wysłany, czy też strona jest
+otwarta po raz pierwszy--%>
 <form method="post">
-    <input type="hidden" name="submitted" value="true">
     Title:<br><input type="text" name="title"><br>
     Artist:<br><input type="text" name="artist"><br>
     Year:<br><input type="text" name="year"><br>
@@ -35,20 +30,8 @@ ${param.submitted}
     <input type="submit">
 </form>
 
-<c:if test="${param.submitted}">
-    <jsp:useBean id="newAlbum" class="pl.sda.jsp.Album"/>
-    <jsp:setProperty name="newAlbum" property="*"/>
-
-    <c:choose>
-        <c:when test="${newAlbum.valid}">
-            <%
-                ((List<Album>) session.getAttribute("albums")).add(newAlbum);
-            %>
-        </c:when>
-        <c:otherwise>
-            <h1>Album data invalid!<br></h1>
-        </c:otherwise>
-    </c:choose>
+<c:if test="${requestScope.invalid}">
+    <h1>Album data invalid!</h1>
 </c:if>
 
 <table>
@@ -59,8 +42,10 @@ ${param.submitted}
         <th>Year</th>
         <th>Genre</th>
     </tr>
+    <%--iterujemy się po wszystkich elementach listy albumów, przechowywanej w sesji--%>
     <c:forEach items="${sessionScope.albums}" var="album" varStatus="loop">
         <tr>
+                <%--używamy expression language żeby wyświetlić kolejne pola--%>
             <td>${loop.count}</td>
             <td>${album.title}</td>
             <td>${album.artist}</td>
@@ -68,6 +53,7 @@ ${param.submitted}
             <td>${album.genre}</td>
         </tr>
     </c:forEach>
+
 </table>
 
 </body>
