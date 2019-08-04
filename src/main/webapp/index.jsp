@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>MyAlbums</title>
+    <title>My Albums Collection</title>
 </head>
 
 <style>
@@ -42,7 +42,7 @@ ${param.submitted}
     <c:choose>
         <c:when test="${newAlbum.valid}">
             <%
-                ((List<Album>)session.getAttribute("albums")).add(newAlbum);
+                ((List<Album>) session.getAttribute("albums")).add(newAlbum);
             %>
         </c:when>
         <c:otherwise>
@@ -53,7 +53,7 @@ ${param.submitted}
 
 <table>
     <tr>
-        <th>Lp.</th>
+        <th>#</th>
         <th>Title</th>
         <th>Artist</th>
         <th>Year</th>
@@ -68,7 +68,6 @@ ${param.submitted}
             <td>${album.genre}</td>
         </tr>
     </c:forEach>
-
 </table>
 
 </body>
